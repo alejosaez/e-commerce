@@ -127,7 +127,7 @@ const Cart = () => {
           </div>
           <div className="flex max-w-md items-center justify-between mt-8">
             <p className="text-sm text-gray-500">
-              Don't have an account? 
+              Don&apos;t have an account? 
               <a className="underline ml-2" href="/register">
                 Sign up
               </a>
