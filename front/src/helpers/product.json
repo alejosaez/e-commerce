@@ -1,0 +1,131 @@
+[
+    {
+      "name": "iPhone 11",
+      "price": 699,
+      "description": "Experience power and elegance with the iPhone 11...",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsyJs2VnNEkhWglq5rNBxjPPw_gC2YqMrJhlPtECHPdQ&s",
+      "categoryId": 1,
+      "stock": 10
+    },
+    {
+      "name": "MacBook Air",
+      "price": 999,
+      "description": "Embrace efficiency and sophistication with the MacBook Air...",
+      "image": "https://i.blogs.es/3ddc31/ap5/500_333.jpeg",
+      "categoryId": 2,
+      "stock": 10
+    },
+    {
+      "name": "iPad Pro",
+      "price": 799,
+      "description": "Unleash your creativity and productivity with the iPad Pro...",
+      "image": "https://d2ihpvt6nd5q28.cloudfront.net/wp-content/uploads/2021/10/iPad_Pro_Wi-Fi_12.9_in_Space_Gray_PDP_Image_Position-1b__en-US-1-300x300.jpg",
+      "categoryId": 3,
+      "stock": 10
+    },
+    {
+      "name": "Apple Watch Series 6",
+      "price": 399,
+      "description": "Stay connected and healthy with the Apple Watch Series 6...",
+      "image": "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch-series-6-aluminum-red-case-altimeter_09152020_inline.jpg.large.jpg",
+      "categoryId": 4,
+      "stock": 10
+    },
+    {
+      "name": "AirPods Pro",
+      "price": 249,
+      "description": "Immerse yourself in sound with the AirPods Pro...",
+      "image": "https://m-cdn.phonearena.com/images/hub/274-wide-two_1200/Apple-AirPods-Pro-3-release-date-predictions-price-specs-and-must-know-features.jpg",
+      "categoryId": 5,
+      "stock": 10
+    },
+    {
+      "name": "HomePod mini",
+      "price": 99,
+      "description": "Elevate your home audio experience with the HomePod mini...",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIgc0E_6ReMAHSJT1cC0qbTCN0VceBvE_dpnghJy-nbg&s",
+      "categoryId": 6,
+      "stock": 10
+    },
+    {
+      "name": "iPhone 12 Pro",
+      "price": 999,
+      "description": "Experience the ultimate iPhone with the iPhone 12 Pro...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-gold-hero?wid=940&hei=1112&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1604021661000",
+      "categoryId": 1,
+      "stock": 10
+    },
+    {
+      "name": "MacBook Pro",
+      "price": 1299,
+      "description": "Unleash your creativity and power with the MacBook Pro...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202011?wid=892&hei=820&&qlt=80&.v=1603406905000",
+      "categoryId": 2,
+      "stock": 10
+    },
+    {
+      "name": "iPad Air",
+      "price": 599,
+      "description": "Discover the perfect balance of power and portability with the iPad Air...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-air-select-202009?wid=940&hei=1112&fmt=png-alpha&qlt=80&.v=1599231597000",
+      "categoryId": 3,
+      "stock": 10
+    },
+    {
+      "name": "Apple Watch SE",
+      "price": 279,
+      "description": "Stay active and connected with the Apple Watch SE...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-watch-se-hero-202009?wid=470&hei=556&fmt=png-alpha&qlt=95&.v=1599834674000",
+      "categoryId": 4,
+      "stock": 10
+    },
+    {
+      "name": "AirPods Max",
+      "price": 549,
+      "description": "Experience exceptional sound with AirPods Max...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-max-select-202011?wid=532&hei=582&fmt=png-alpha&qlt=80&.v=1604704792000",
+      "categoryId": 5,
+      "stock": 10
+    },
+    {
+      "name": "Apple TV 4K",
+      "price": 179,
+      "description": "Immerse yourself in stunning 4K HDR with Apple TV...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-tv-4k-hero-select-202104?wid=452&hei=460&fmt=jpeg&qlt=95&.v=1616771300000",
+      "categoryId": 6,
+      "stock": 10
+    },
+    {
+      "name": "Beats Studio Buds",
+      "price": 149,
+      "description": "Enjoy powerful sound and active noise cancellation with Beats Studio Buds...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/beats-studio-buds-hero-202106?wid=532&hei=582&fmt=png-alpha&qlt=80&.v=1622770509000",
+      "categoryId": 7,
+      "stock": 10
+    },
+    {
+      "name": "Apple One",
+      "price": 14.95,
+      "description": "Access all of Apple's services with Apple One...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-one-family-202109?wid=532&hei=582&fmt=png-alpha&qlt=80&.v=1631182046000",
+      "categoryId": 8,
+      "stock": 10
+    },
+    {
+      "name": "Apple Pencil (2nd generation)",
+      "price": 129,
+      "description": "Unlock new possibilities with the Apple Pencil (2nd generation)...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-pencil-2nd-gen-hero-201810?wid=452&hei=460&fmt=png-alpha&qlt=95&.v=1548452312839",
+      "categoryId": 9,
+      "stock": 10
+    },
+    {
+      "name": "Apple MagSafe Battery Pack",
+      "price": 99,
+      "description": "Stay charged on the go with the Apple MagSafe Battery Pack...",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/magsafe-battery-hero-202107_FMT_WHH?wid=1200&hei=630&fmt=jpeg&qlt=95&.v=1624959652000",
+      "categoryId": 10,
+      "stock": 10
+    }
+  ]
+  
