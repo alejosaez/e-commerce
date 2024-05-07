@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react';
+import Image from 'next/image'; // Importamos Image de next/image
 
 interface Product {
   id: string;
@@ -24,9 +25,11 @@ const CartItem: React.FC<CartItemProps> = ({ product, removeFromCart }) => {
 
   return (
     <li className="flex items-center gap-4">
-      <img
+      <Image // Reemplazamos <img> con <Image />
         src={product.image}
         alt={product.name}
+        width={64} // Ajusta el ancho de la imagen según tus necesidades
+        height={64} // Ajusta la altura de la imagen según tus necesidades
         className="h-16 rounded object-cover"
       />
 

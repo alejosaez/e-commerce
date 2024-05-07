@@ -1,11 +1,8 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import OrderHistory from "../component/OrderHistory";
 import { useAppContext } from "@/context";
 import UserProfile from "../component/Profile";
 import NotFoundPage from "../404/404";
-
 
 interface User {
   id: number;
@@ -22,53 +19,60 @@ const Page = () => {
   const [orders, setOrders] = useState([]);
   const [user, setUser] = useState<User | null>(null);
 
-  const fetchOrders = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/users/orders", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Error fetching orders");
-      }
-
-      const data = await response.json();
-      console.log("las ordenes: ", data)
-      setOrders(data);
-    } catch (error) {
-NotFoundPage
-      console.error("Error fetching orders:", error);
-    }
-  };
-
-  const getUserById = async () => {
-    try {
-      const response = await fetch(`http://localhost:3001/users/${userId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Error fetching user");
-      }
-
-      const data = await response.json();
-      setUser(data);
-    } catch (error) {
-NotFoundPage
-      console.error("Error fetching user:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchOrders();
-    getUserById();
-  }, []);
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/users/orders", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Error fetching orders");
+        }
+
+        const data = await response.json();
+        console.log("las ordenes: ", data);
+        setOrders(data);
+      } catch (error) {
+        NotFoundPage;
+        console.error("Error fetching orders:", error);
+      }
+    };
+
+    const getUserById = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/users/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `${token}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Error fetching user");
+        }
+
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        NotFoundPage;
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    const fetchData = async () => {
+      await fetchOrders();
+      await getUserById();
+    };
+
+    fetchData();
+  }, [token, userId]);
 
   return (
     <div className="bg-black text-white min-h-screen">

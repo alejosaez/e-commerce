@@ -30,8 +30,8 @@ const Login: React.FC = () => {
       setCookie("user-role", data.user.role);
       window.location.href = "/";
     } catch (error) {
-      NotFoundPage
-      setError("error al iniciar secion");
+      NotFoundPage;
+      setError("Error al iniciar sesión");
 
       setEmail("");
       setPassword("");
@@ -123,7 +123,7 @@ const Login: React.FC = () => {
 
         <div className="flex items-center justify-between">
           <p className="text-sm text-gray-500">
-            Don't have an account? 
+            Don&apos;t have an account? 
             <a className="underline ml-2" href="/register">
               Sign up
             </a>

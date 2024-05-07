@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
+import Image from 'next/image'; // Importamos Image de next/image
 
 const Carousel: React.FC = () => {
     return (
@@ -25,21 +26,27 @@ const Carousel: React.FC = () => {
                     }}
                 >
                     <SwiperSlide>
-                        <img className='w-full h-[450px]'
+                        <Image // Reemplazamos <img> con <Image />
                             src="https://www.lg.com/levant_en/images/plp-b2c/levanten-mobilephones-hero-1-d.jpg"
                             alt="iPhone 15 Pro Max"
+                            width={1200} // Ajusta el ancho de la imagen según tus necesidades
+                            height={450} // Ajusta la altura de la imagen según tus necesidades
                         />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <img className='w-full h-[450px]'
+                        <Image // Reemplazamos <img> con <Image />
                             src="https://5.imimg.com/data5/AX/DR/AB/SELLER-9561275/interactive-graphic-design-service-1000x1000.jpg"
                             alt="iPhone 15 Pro Max"
+                            width={1200} // Ajusta el ancho de la imagen según tus necesidades
+                            height={450} // Ajusta la altura de la imagen según tus necesidades
                         />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <img className='w-full h-[450px]'
+                        <Image // Reemplazamos <img> con <Image />
                             src="https://5.imimg.com/data5/MF/AD/OO/SELLER-9561275/interactive-graphic-design-service-1000x1000.jpg"
                             alt="iPhone 15 Pro Max"
+                            width={1200} // Ajusta el ancho de la imagen según tus necesidades
+                            height={450} // Ajusta la altura de la imagen según tus necesidades
                         />
                     </SwiperSlide>
                 </Swiper>

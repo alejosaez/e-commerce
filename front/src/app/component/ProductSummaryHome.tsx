@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { useAppContext } from "@/context";
 import { BsPencil } from "react-icons/bs";
 import NotFoundPage from "../404/404";
+import Image from "next/image";
 
 interface Product {
   id: string;
@@ -15,16 +16,13 @@ interface Product {
 
 interface ProductSummaryProps {
   product: Product;
-
 }
 
-const ProductSummaryHome: React.FC<ProductSummaryProps> = ({ product}) => {
-  const { token, userRole } = useAppContext();
+const ProductSummaryHome: React.FC<ProductSummaryProps> = ({ product }) => {
+  const { userRole } = useAppContext();
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedProduct, setEditedProduct] = useState(product);
-
-
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -51,11 +49,10 @@ const ProductSummaryHome: React.FC<ProductSummaryProps> = ({ product}) => {
 
       setIsEditing(false);
     } catch (error) {
-NotFoundPage
+      NotFoundPage;
       console.error('Error al guardar la edición del producto:', error);
     }
   };
-
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -64,13 +61,17 @@ NotFoundPage
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg ml-4 mr-4 mb-4">
-      {userRole === "admin" && <button className="flex rounded-lg bg-orange-500 px-3 mb-3 py-3 text-sm font-medium text-white" onClick={handleEditClick}>
-        <BsPencil />
-      </button>}
-      <img
+      {userRole === "admin" && (
+        <button className="flex rounded-lg bg-orange-500 px-3 mb-3 py-3 text-sm font-medium text-white" onClick={handleEditClick}>
+          <BsPencil />
+        </button>
+      )}
+      <Image
         className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105"
         src={editedProduct.image}
         alt={editedProduct.name}
+        width={400}
+        height={350}
       />
       <div className="text-black mt-5">
         <h5 className="text-sm font-semibold uppercase tracking-widest">{editedProduct.name}</h5>
@@ -102,20 +103,15 @@ NotFoundPage
               value={editedProduct.stock}
               onChange={handleInputChange}
             />
-            <button className="inline-block mt-4 px-4 py-2 bg-red-700 text-[12px] font-bold uppercase tracking-widest text-white rounded-full"
-              onClick={handleCancelEdit}>Cancelar</button>
-            <button className="inline-block mt-4 px-4 ml-4 py-2 bg-blue-500 text-[12px] font-bold uppercase tracking-widest text-white rounded-full"
-              onClick={handleSaveEdit}>Guardar</button>
+            <button className="inline-block mt-4 px-4 py-2 bg-red-700 text-[12px] font-bold uppercase tracking-widest text-white rounded-full" onClick={handleCancelEdit}>Cancelar</button>
+            <button className="inline-block mt-4 px-4 ml-4 py-2 bg-blue-500 text-[12px] font-bold uppercase tracking-widest text-white rounded-full" onClick={handleSaveEdit}>Guardar</button>
           </>
         ) : (
           <>
-            <a
-              className="inline-block mt-4 px-4 py-2 mr-4 bg-blue-700 text-sm font-bold uppercase tracking-widest text-white rounded-full"
-              href={`/products/${editedProduct.id}`}
-            >
+            <a className="inline-block mt-4 px-4 py-2 mr-4 bg-blue-700 text-sm font-bold uppercase tracking-widest text-white rounded-full" href={`/products/${editedProduct.id}`}>
               View Detail
             </a>
-                      </>
+          </>
         )}
       </div>
     </div>

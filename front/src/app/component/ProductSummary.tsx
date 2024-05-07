@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { useAppContext } from "@/context";
 import { BsPencil } from "react-icons/bs";
 import NotFoundPage from "../404/404";
+import Image from "next/image";
 
 interface Product {
   id: string;
@@ -27,8 +28,9 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({ product, onAddToCart })
   const handleAddToCart = () => {
     if (!token) {
       window.location.href = "/login";
-    }else {
-    onAddToCart(product)}
+    } else {
+      onAddToCart(product);
+    }
   };
 
   const handleEditClick = () => {
@@ -56,7 +58,7 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({ product, onAddToCart })
 
       setIsEditing(false);
     } catch (error) {
-NotFoundPage
+      NotFoundPage
 
       console.error('Error al guardar la edición del producto:', error);
     }
@@ -73,10 +75,12 @@ NotFoundPage
       {userRole === "admin" && <button className="flex rounded-lg bg-orange-500 px-3 mb-3 py-3 text-sm font-medium text-white" onClick={handleEditClick}>
         <BsPencil />
       </button>}
-      <img
+      <Image
         className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105"
         src={editedProduct.image}
         alt={editedProduct.name}
+        width={400}
+        height={350}
       />
       <div className="text-black mt-8">
         <h5 className="text-sm font-semibold uppercase tracking-widest">{editedProduct.name}</h5>
@@ -121,13 +125,13 @@ NotFoundPage
             >
               View Detail
             </a>
-            {userRole !== "admin" && 
-            <button
-              onClick={handleAddToCart}
-              className="inline-block mt-4 px-4 py-2 bg-black text-sm font-bold uppercase tracking-widest text-white rounded-full"
-            >
-              Add to Cart
-            </button>
+            {userRole !== "admin" &&
+              <button
+                onClick={handleAddToCart}
+                className="inline-block mt-4 px-4 py-2 bg-black text-sm font-bold uppercase tracking-widest text-white rounded-full"
+              >
+                Add to Cart
+              </button>
             }
           </>
         )}
