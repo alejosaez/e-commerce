@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { setCookie } from "cookies-next";
-import NotFoundPage from "../404/404";
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,7 +31,6 @@ const Login: React.FC = () => {
       setCookie("user-role", data.user.role);
       window.location.href = "/";
     } catch (error) {
-      NotFoundPage;
       setError("Error al iniciar sesión");
 
       setEmail("");
@@ -59,7 +59,7 @@ const Login: React.FC = () => {
             <input
               type="email"
               className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm text-black"
-              placeholder="Ingrese su correo electrónico"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -88,13 +88,16 @@ const Login: React.FC = () => {
           </label>
           <div className="relative">
             <input
-              type="text"
+              type={showPassword ? 'text' : 'password'}
               className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm text-black"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
+            <span
+              className="absolute inset-y-0 end-0 grid place-content-center px-4 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="size-4 text-gray-400"
@@ -102,18 +105,21 @@ const Login: React.FC = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
+                {showPassword ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                )}
               </svg>
             </span>
           </div>
@@ -123,7 +129,7 @@ const Login: React.FC = () => {
 
         <div className="flex items-center justify-between">
           <p className="text-sm text-gray-500">
-            Don&apos;t have an account? 
+            Don't have an account? 
             <a className="underline ml-2" href="/register">
               Sign up
             </a>

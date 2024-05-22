@@ -1,18 +1,17 @@
 "use client"
-
-import React, { useState } from 'react';
-import NotFoundPage from '../404/404';
+import React, { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Formulario: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    address: '',
-    phone: '',
+    name: "",
+    email: "",
+    password: "",
+    address: "",
+    phone: "",
   });
-
-  const [alertMessage, setAlertMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -21,56 +20,52 @@ const Formulario: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (validateForm()) {
-      try {
-        const response = await fetch('http://localhost:3001/users/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-        if (!response.ok) {
-          const errorMessage = await response.text();
-          if (response.status === 400 && errorMessage === 'User already exists') {
-            setAlertMessage('El usuario ya existe');
-          } else {
-            throw new Error('Error al registrar usuario');
-          }
+    try {
+      window.location.href = "/login";
+      const response = await fetch("http://localhost:3001/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        if (
+          response.status === 400 &&
+          errorMessage === "User already exists"
+        ) {
+          toast.error("User already exists");
         } else {
-          const data = await response.json();
-          console.log('Usuario registrado:', data);
-          // Aquí puedes manejar la respuesta del backend, como almacenar el token JWT
+          throw new Error("Error al registrar usuario");
         }
-      } catch (error) {
-        NotFoundPage
-        console.error('Error al registrar usuario:', error);
+      } else {
+        const data = await response.json();
+        console.log("Usuario registrado:", data);
+        toast.success("¡Usuario registrado exitosamente!");
+        //   manejar la respuesta del backend, como almacenar el token JWT
       }
-    } else {
-      setAlertMessage('Por favor completa todos los campos');
+    } catch (error) {
+      console.error("Error al registrar usuario:", error);
+      toast.error("Error al registrar usuario");
     }
-  };
-
-  const validateForm = (): boolean => {
-    // Verifica que todos los campos estén completos
-    return (
-      formData.name !== '' &&
-      formData.email !== '' &&
-      formData.password !== '' &&
-      formData.address !== '' &&
-      formData.phone !== ''
-    );
   };
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+      <ToastContainer />
       <div className="mx-auto max-w-lg text-center">
         <h2 className="text-2xl font-bold sm:text-3xl">Register</h2>
       </div>
 
-      <form onSubmit={handleSubmit} className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className="mx-auto mb-0 mt-8 max-w-md space-y-4"
+      >
         <div>
-          <label htmlFor="name" className="sr-only">Name:</label>
+          <label htmlFor="name" className="sr-only">
+            Name:
+          </label>
           <input
             type="text"
             id="name"
@@ -83,7 +78,9 @@ const Formulario: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="email" className="sr-only">Email:</label>
+          <label htmlFor="email" className="sr-only">
+            Email:
+          </label>
           <input
             type="email"
             id="email"
@@ -96,20 +93,54 @@ const Formulario: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="sr-only">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm text-black"
-            placeholder="Password"
-            required
-          />
+          <label htmlFor="password" className="sr-only">
+            Password:
+          </label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm text-black"
+              placeholder="Password"
+              required
+            />
+            <span
+              className="absolute inset-y-0 end-0 grid place-content-center px-4 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {showPassword ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                )}
+              </svg>
+            </span>
+          </div>
         </div>
         <div>
-          <label htmlFor="address" className="sr-only">Address:</label>
+          <label htmlFor="address" className="sr-only">
+            Address:
+          </label>
           <input
             type="text"
             id="address"
@@ -122,7 +153,9 @@ const Formulario: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="phone" className="sr-only">Phone:</label>
+          <label htmlFor="phone" className="sr-only">
+            Phone:
+          </label>
           <input
             type="text"
             id="phone"
@@ -134,16 +167,22 @@ const Formulario: React.FC = () => {
             required
           />
         </div>
-        <button type="submit" className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white">
+        <button
+          type="submit"
+          className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+        >
           Registrarse
         </button>
-      </form>
-
-      {alertMessage && (
-        <div className="mx-auto max-w-md mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
-          {alertMessage}
+       
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-gray-500">
+            You have an account?{" "}
+            <a className="underline ml-2" href="/login">
+              Sign In
+            </a>
+          </p>
         </div>
-      )}
+      </form>
     </div>
   );
 };

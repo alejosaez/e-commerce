@@ -1,8 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NotFoundPage from '../404/404';
-import Image from 'next/image'; // Importamos Image de next/image
+
 
 const CreateProduct: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +15,7 @@ const CreateProduct: React.FC = () => {
 
   const [categories, setCategories] = useState([]);
   const [alertMessage, setAlertMessage] = useState('');
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState("")
 
   useEffect(() => {
     fetchCategories();
@@ -32,7 +31,7 @@ const CreateProduct: React.FC = () => {
         throw new Error('Error al obtener las categorías');
       }
     } catch (error) {
-      NotFoundPage;
+
       console.error('Error al obtener las categorías:', error);
     }
   };
@@ -61,7 +60,8 @@ const CreateProduct: React.FC = () => {
         setImage(responseData.data.url);
 
       } catch (error) {
-        NotFoundPage;
+       
+        
       }
     }
   };
@@ -111,7 +111,7 @@ const CreateProduct: React.FC = () => {
           })
         }
       } catch (error) {
-        NotFoundPage;
+        
         console.error('Error al registrar producto:', error);
       }
     } else {
@@ -151,7 +151,7 @@ const CreateProduct: React.FC = () => {
               className="absolute inset-0 opacity-0 cursor-pointer"
               required
             />
-            {image && <Image src={image} alt="" />} {/* Reemplazamos <img> con <Image /> */}
+            {image && <img src={image} alt="" />}
           </div>
           <label htmlFor="name" className="sr-only">Name:</label>
           <input

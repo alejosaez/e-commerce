@@ -4,7 +4,8 @@ import {
   getProductsService,
   getProductByIdService,
   createProductService,
-  updateProductService
+  updateProductService,
+  getProductByCategoryService
 } from "../services/products.service";
 
 export const getProducts = catchedController(
@@ -28,6 +29,23 @@ export const getProductById = async (req: Request, res: Response) => {
   }
 };
 
+
+
+export const getProductByCategory = async (req: Request, res: Response) => {
+  const productId = parseInt(req.params.id);
+  try {
+    const product = await getProductByCategoryService(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.json(product);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
 export const createProduct = async (req: Request, res: Response) => {
   const productData = req.body;
 
@@ -49,9 +67,10 @@ export const updateProduct = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "El producto no fue encontrado." });
     }
 
-    const { name, description, price, stock } = req.body;
+    const { name,image, description, price, stock } = req.body;
+    console.log("product update: ", name,image, description, price, stock)
 
-    await updateProductService(product, { name, description, price, stock });
+    await updateProductService(product, { name,image, description, price, stock });
 
     return res.status(200).json({ message: "El producto fue actualizado exitosamente." });
   } catch (error) {

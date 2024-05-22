@@ -4,7 +4,6 @@ import React from "react";
 import { useAppContext } from '@/context';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Image from "next/image";
 
 interface Product {
   id: string;
@@ -26,9 +25,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onAddToCart }) =
   const handleAddToCart = () => {
     if (!token) {
       window.location.href = "/login";
-    } else {
-      onAddToCart(product);
-    }
+    }else {
+    onAddToCart(product)}
   };
 
   return (
@@ -36,12 +34,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onAddToCart }) =
       <div className="h-48 md:h-full md:col-span-1">
         {" "}
         
-        <Image
+        <img
           src={product.image}
           alt={product.name}
-          width={300}
-          height={300}
-          objectFit="contain"
+          className="w-full h-full object-contain"
         />
       </div>
 

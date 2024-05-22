@@ -15,6 +15,7 @@ interface ProductUpdateData {
   description?: string;
   price?: number;
   stock?: number;
+  image?: string;
 }
 
 export const checkProductExists = async (itemId: number): Promise<boolean> => {
@@ -33,6 +34,23 @@ export const getProductByIdService = async (productId: number): Promise<Product 
   return await ProductRepository.findOneById(productId);
 };
 
+
+export const getProductByCategoryService = async (categoryId: number): Promise<Product[] | null> => {
+  try {
+    const products = await ProductRepository.find({
+      where: { categoryId: categoryId }
+    });
+    return products;
+  } catch (error) {
+    console.error('Error getting products by category:', error);
+    throw new Error('Error getting products by category');
+  }
+};
+
+
+
+
+
 export const createProductService = async (productData: SingleProduct): Promise<Product> => {
   try {
     const newProduct = ProductRepository.create(productData);
@@ -47,6 +65,8 @@ export const createProductService = async (productData: SingleProduct): Promise<
 export const updateProductService = async (product: Product, updateData: ProductUpdateData): Promise<void> => {
   try {
     await ProductRepository.update(product.id, updateData);
+    console.log("produc: ", product)
+    console.log("produc data: ", updateData)
   } catch (error) {
     console.error('Error al actualizar el producto en el servicio:', error);
     throw new Error('Error al actualizar el producto en el servicio.');

@@ -64,7 +64,7 @@ const Cart = () => {
       toast.success("Order placed successfully!");
       localStorage.removeItem("cart");
       setCart([]);
-      alert("Se realizo la compra con exito!");
+      // alert("Se realizo la compra con exito!");
     } catch (error) {
       console.error("Error placing order:", error);
       toast.error("Failed to place order");
@@ -127,7 +127,7 @@ const Cart = () => {
           </div>
           <div className="flex max-w-md items-center justify-between mt-8">
             <p className="text-sm text-gray-500">
-              Don&apos;t have an account? 
+              Don't have an account? 
               <a className="underline ml-2" href="/register">
                 Sign up
               </a>

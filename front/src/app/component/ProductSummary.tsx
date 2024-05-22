@@ -1,10 +1,9 @@
-"use client";
+"use client"
 
 import React, { useState } from "react";
 import { useAppContext } from "@/context";
 import { BsPencil } from "react-icons/bs";
-import NotFoundPage from "../404/404";
-import Image from "next/image";
+
 
 interface Product {
   id: string;
@@ -24,12 +23,12 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({ product, onAddToCart })
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedProduct, setEditedProduct] = useState(product);
-
+  const [image, setImage] = useState("")
   const handleAddToCart = () => {
     if (!token) {
       window.location.href = "/login";
     } else {
-      onAddToCart(product);
+      onAddToCart(product)
     }
   };
 
@@ -43,13 +42,14 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({ product, onAddToCart })
   };
 
   const handleSaveEdit = async () => {
+    const updatedProduct = { ...editedProduct, image: image };
     try {
-      const response = await fetch(`http://localhost:3001/products/${editedProduct.id}`, {
+      const response = await fetch(`http://localhost:3001/products/edit/${editedProduct.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(editedProduct),
+        body: JSON.stringify(updatedProduct),
       });
 
       if (!response.ok) {
@@ -57,30 +57,53 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({ product, onAddToCart })
       }
 
       setIsEditing(false);
+      setEditedProduct(updatedProduct);
     } catch (error) {
-      NotFoundPage
-
       console.error('Error al guardar la edición del producto:', error);
     }
   };
+
 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEditedProduct({ ...editedProduct, [name]: value });
   };
+  const uploadToServe = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imageFile = e.target.files?.[0];
+    if (imageFile) {
+      const url = `https://api.imgbb.com/1/upload?&key=${"014b88a821dac68c6fa90f97c780af0a"}&name=${imageFile.name}`;
+      const data = new FormData();
+      data.append("image", imageFile);
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          body: data,
+        });
+
+        const responseData = await response.json();
+        console.log("imageurlresponse: ", responseData.data.url);
+
+        setImage(responseData.data.url);
+
+      } catch (error) {
+
+
+      }
+    }
+  };
+
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg ml-4 mr-4 mb-4">
       {userRole === "admin" && <button className="flex rounded-lg bg-orange-500 px-3 mb-3 py-3 text-sm font-medium text-white" onClick={handleEditClick}>
         <BsPencil />
       </button>}
-      <Image
+      <img
         className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105"
         src={editedProduct.image}
         alt={editedProduct.name}
-        width={400}
-        height={350}
       />
       <div className="text-black mt-8">
         <h5 className="text-sm font-semibold uppercase tracking-widest">{editedProduct.name}</h5>
@@ -92,7 +115,7 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({ product, onAddToCart })
               type="text"
               className="w-full rounded-lg border-gray-400 p-4 mb-2 pe-12 text-sm shadow-sm text-black"
               name="name"
-              placeholder="Ingrese el nuevo nombre"
+              placeholder="New name"
               value={editedProduct.name}
               onChange={handleInputChange}
             />
@@ -112,15 +135,29 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({ product, onAddToCart })
               value={editedProduct.stock}
               onChange={handleInputChange}
             />
+            <div className="relative">
+              <label htmlFor="image" className="cursor-pointer inline-block bg-blue-500 text-white py-2 px-4 rounded-lg shadow-sm">
+                Upload Image
+              </label>
+              <input
+                type="file"
+                id="image"
+                onChange={uploadToServe}
+                name="image"
+                className="absolute inset-0 opacity-0 cursor-pointer"
+                required
+              />
+              {image && <img src={image} alt="" />}
+            </div>
             <button className="inline-block mt-4 px-4 py-2 bg-red-700 text-[12px] font-bold uppercase tracking-widest text-white rounded-full"
               onClick={handleCancelEdit}>Cancelar</button>
             <button className="inline-block mt-4 px-4 ml-4 py-2 bg-blue-500 text-[12px] font-bold uppercase tracking-widest text-white rounded-full"
-              onClick={handleSaveEdit}>Guardar</button>
+              onClick={handleSaveEdit}>Save</button>
           </>
         ) : (
           <>
             <a
-              className="inline-block mt-4 px-4 py-2 mr-4 bg-blue-700 text-sm font-bold uppercase tracking-widest text-white rounded-full"
+              className="inline-block mt-4 px-3 py-2 mr-4 bg-blue-700 text-[13px] font-bold uppercase tracking-widest text-white rounded-full"
               href={`/products/${editedProduct.id}`}
             >
               View Detail
@@ -128,7 +165,7 @@ const ProductSummary: React.FC<ProductSummaryProps> = ({ product, onAddToCart })
             {userRole !== "admin" &&
               <button
                 onClick={handleAddToCart}
-                className="inline-block mt-4 px-4 py-2 bg-black text-sm font-bold uppercase tracking-widest text-white rounded-full"
+                className="inline-block mt-4 px-3 py-2 bg-black text-[13px] font-bold uppercase tracking-widest text-white rounded-full"
               >
                 Add to Cart
               </button>

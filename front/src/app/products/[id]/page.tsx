@@ -3,7 +3,7 @@ import React from "react";
 import ProductDetail from "@/app/component/ProductDetail";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loading from "@/app/component/Loading";
+
 
 
 
@@ -77,8 +77,7 @@ const Product: React.FC<{ params: RouteParams }> = ({ params }) => {
       <div className="max-w-4xl mx-auto">
         {product ? (
           <ProductDetail product={product} onAddToCart={addToCart} /> 
-        ) : (
-          <Loading progress={75} />
+        ) : (<img src="https://lh5.googleusercontent.com/proxy/a9ib5u8EJXw5MMefEYgwnK8LbCVFLoAL05XqkyGvBFLMmC5phEzo6OPasPoDsTe_UX4B4x3sTmWSZ-AUPU7Ay5A" alt="" />
 
         )}
       </div>
